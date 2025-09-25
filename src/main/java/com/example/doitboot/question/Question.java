@@ -1,8 +1,9 @@
-package com.example.doitboot;
+package com.example.doitboot.question;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
+import com.example.doitboot.answer.Answer;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

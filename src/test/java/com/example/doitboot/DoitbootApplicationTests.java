@@ -1,15 +1,18 @@
 package com.example.doitboot;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.time.LocalDateTime;
-import java.util.Optional;
-import java.util.List;
+import java.util.*;
 
-import net.bytebuddy.asm.Advice;
+import com.example.doitboot.answer.Answer;
+import com.example.doitboot.answer.AnswerRepository;
+import com.example.doitboot.question.Question;
+import com.example.doitboot.question.QuestionRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
 @SpringBootTest
 class DoitbootApplicationTests {
@@ -17,17 +20,20 @@ class DoitbootApplicationTests {
     @Autowired
     private QuestionRepository questionRepository;
 
-    @Test
-    void name() {
-    }
+    @Autowired
+    private AnswerRepository answerRepository;
 
+    @Transactional
     @Test
     void testJpa() {
-        List<Question> qList = this.questionRepository.findBySubjectLike("%sbb%");
-        Question q = qList.get(0);
-        assertEquals("What is sbb?", q.getSubject());
+        Optional<Question> oq = this.questionRepository.findById(2);
+        assertTrue(oq.isPresent());
+        Question q = oq.get();
 
+        List<Answer> answerList = q.getAnswerList();
 
+        assertEquals(1, answerList.size());
+        assertEquals("Yes, created automatically", answerList.get(0).getContent());
     }
 
 }
