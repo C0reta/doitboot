@@ -1,4 +1,4 @@
-package com.example.doitboot;
+package com.example.doitboot.answer;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
